@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Monitor</title>
+</head>
+<body>
+<h1>Real-Time Stock Monitor</h1>
+<pre id="output">Loading...</pre>
+
+<script>
+function loadPrice() {
+  fetch("http://localhost:5000/price")
+    .then(r => r.json())
+    .then(d => {
+      document.getElementById("output").innerText =
+        "Stock : " + d.stock + "\n" +
+        "Price : $" + d.price + "\n" +
+        "Change: " + d.change;
+    })
+    .catch(() => {
+      document.getElementById("output").innerText =
+        "ERROR: Backend unavailable";
+    });
+}
+
+loadPrice();
+setInterval(loadPrice, 3000);
+</script>
+</body>
+</html>
